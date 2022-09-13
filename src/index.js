@@ -6,8 +6,8 @@ const app = express();
 
 app.use(express.json({ limit: "1000mb" }));
 
-cron.schedule("*/10 * * * *", async (req, res) => {
-  console.log("Executando a tarefa a cada 5 minuto");
+cron.schedule("* * * * *", async (req, res) => {
+  console.log("Executando a tarefa a cada 1 minuto");
   const json = await getSantaJoana();
   console.res.json(json);
   return res.json(json);
