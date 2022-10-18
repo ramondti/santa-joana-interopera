@@ -50,9 +50,7 @@ export async function getSantaJoana() {
         WHERE internacao.cd_atendimento = DBI_FHIR_SUMARIO_INTERNACAO.CD_ATENDIMENTO
         AND ROWNUM = 1) AS MEDICAMENTO  
       FROM DBINTEGRA.DBI_FHIR_SUMARIO_INTERNACAO 
-      --where id_sumario_internacao = 125541 
-      --where cd_atendimento  = 2521736
-      WHERE conselho_classe = 'CRM'  `
+      WHERE sn_status = 'N'  `
     );
 
     if (!getIdSumarioInternacao || getIdSumarioInternacao.length === 0) {
@@ -185,7 +183,7 @@ export async function getSantaJoana() {
 
       await knex.raw(
         `UPDATE DBINTEGRA.DBI_FHIR_SUMARIO_INTERNACAO 
-          SET conselho_classe = 'CRM ' 
+          SET sn_status = 'S' 
          WHERE id_sumario_internacao = ${sumarioInternacao.ID_SUMARIO_INTERNACAO} `
       );
 
@@ -220,8 +218,8 @@ export async function getSantaJoana() {
 
     await knex.raw(
       `UPDATE DBINTEGRA.DBI_FHIR_SUMARIO_INTERNACAO 
-          SET conselho_classe = 'CRM ' 
-         WHERE id_sumario_internacao = ${sumarioInternacao.ID_SUMARIO_INTERNACAO} `
+        SET sn_status = 'S' 
+       WHERE id_sumario_internacao = ${sumarioInternacao.ID_SUMARIO_INTERNACAO} `
     );
 
     const response = await axios.put(`${URL_SANTA_JOANA}${bundle.ID}`, result, {
